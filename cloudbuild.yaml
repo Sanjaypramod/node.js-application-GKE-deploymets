@@ -28,7 +28,7 @@ steps:
       - '-c'
       - |
         gcloud config set project certain-router-423311 && \
-        gcloud container clusters get-credentials sanjay --zone us-central1-a --project certain-router-423311
+        gcloud container clusters get-credentials sanjay --region us-central1 --project certain-router-423311
     id: GKE_Auth
 
   # Step 5: Initialize Helm (optional, depending on your cluster setup)
@@ -54,4 +54,10 @@ steps:
 
 images:
   - 'gcr.io/certain-router-423311-c7/my-app:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  service_account: 'gcr-874@certain-router-423311-c7.iam.gserviceaccount.com'
+
+timeout: '900s'
 
