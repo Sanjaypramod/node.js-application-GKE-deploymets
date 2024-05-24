@@ -50,7 +50,7 @@ steps:
     args:
       - '-c'
       - |
-        helm upgrade --install my-app-release ./helm/my-app-chart --set image.repository=gcr.io/certain-router-423311-c7/my-app,image.tag=latest
+        helm upgrade --install my-app-release ./helm/chart --set image.repository=gcr.io/certain-router-423311-c7/my-app,image.tag=latest
     id: Deploy_Helm
 
 images:
@@ -62,4 +62,3 @@ options:
 service_account: 'gcr-874@certain-router-423311-c7.iam.gserviceaccount.com'
 
 timeout: '900s'
-
