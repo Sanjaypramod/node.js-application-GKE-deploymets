@@ -32,7 +32,7 @@ steps:
         apt-add-repository 'deb https://baltocdn.com/helm/stable/debian/ all main' && \
         apt-get update && \
         apt-get install -y helm && \
-        /usr/local/bin/helm version
+        /usr/bin/helm version
     id: Install_Helm
 
   # Step 5: Initialize Helm (optional, depending on your cluster setup)
@@ -41,8 +41,8 @@ steps:
     args:
       - '-c'
       - |
-        /usr/local/bin/helm repo add stable https://charts.helm.sh/stable && \
-        /usr/local/bin/helm repo update
+        /usr/bin/helm repo add stable https://charts.helm.sh/stable && \
+        /usr/bin/helm repo update
     id: Init_Helm
 
   # Step 6: Deploy using Helm
@@ -51,7 +51,7 @@ steps:
     args:
       - '-c'
       - |
-        /usr/local/bin/helm upgrade --install my-app-release ./helm/chart --set image.repository=gcr.io/certain-router-423311-c7/my-app,image.tag=latest
+        /usr/bin/helm upgrade --install my-app-release ./helm/chart --set image.repository=gcr.io/certain-router-423311-c7/my-app,image.tag=latest
     id: Deploy_Helm
 
 images:
