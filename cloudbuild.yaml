@@ -9,6 +9,49 @@ steps:
     args: ['push', 'gcr.io/certain-router-423311-c7/my-app:latest']
     id: Push
 
+  # Step 3: Install Helm
+  - name: 'alpine/helm:3.5.4'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        apk add --no-cache curl && \
+        curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v3.5.4-linux-amd64.tar.gz && \
+        tar -zxvf helm-v3.5.4-linux-amd64.tar.gz && \
+        mv linux-amd64/helm /usr/local/bin/helm
+    id: Install_Helm
+
+  # Step 4: Set up GKE authentication
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud config set project certain-router-423311 && \
+        gcloud container clusters get-credentials sanjay --zone us-central1 --project certain-router-423311
+    id: GKE_Auth
+
+  # Step 5: Initialize Helm (optional, depending on your cluster setup)
+  - name: 'alpine/helm:3.5.4'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        helm repo add stable https://charts.helm.sh/stable && \
+        helm repo update
+    id: Init_Helm
+
+  # Step 6: Deploy using Helm
+  - name: 'alpine/helm:3.5.4'
+    args:
+      - 'upgrade'
+      - '--install'
+      - 'my-app-release'
+      - './helm/my-app-chart'
+      - '--set'
+      - 'image.repository=gcr.io/certain-router-423311-c7/my-app,image.tag=latest'
+    id: Deploy_Helm
+
 images:
   - 'gcr.io/certain-router-423311-c7/my-app:latest'
 
