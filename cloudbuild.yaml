@@ -15,8 +15,8 @@ steps:
     args:
       - '-c'
       - |
-        gcloud config set project certain-router-423311 && \
-        gcloud container clusters get-credentials sanjay --region us-central1 --project certain-router-423311
+        gcloud config set project certain-router-423311-c7 && \
+        gcloud container clusters get-credentials sanjay --region us-central1 --project certain-router-423311-c7
     id: GKE_Auth
 
   # Step 4: Install Helm
