@@ -33,15 +33,15 @@ steps:
         /usr/local/bin/helm version
     id: Install_Helm
 
-  # Step 5: Initialize Helm (optional, depending on your cluster setup)
-  - name: 'ubuntu'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        /usr/local/bin/helm repo add stable https://charts.helm.sh/stable && \
-        /usr/local/bin/helm repo update
-    id: Init_Helm
+  # # Step 5: Initialize Helm (optional, depending on your cluster setup)
+  # - name: 'ubuntu'
+  #   entrypoint: 'bash'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       /usr/local/bin/helm repo add stable https://charts.helm.sh/stable && \
+  #       /usr/local/bin/helm repo update
+  #   id: Init_Helm
 
   # Step 6: Deploy using Helm
   - name: 'ubuntu'
