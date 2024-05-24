@@ -17,7 +17,7 @@ env:
     value: "MyValue"
 
 image:
-  repository: 039033235676.dkr.ecr.us-west-2.amazonaws.com/pocrepo:c5deada # sanjay-repo
+  repository: gcr.io/certain-router-423311-c7/my-app@sha256:0098f159530fdc9aaaa5a0c1221fc7355c0a89e5fbd3088dd0a6dbb66113a2ac # sanjay-repo
   tag: latest
   pullPolicy: Always
 
