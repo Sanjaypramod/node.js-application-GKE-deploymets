@@ -1,0 +1,14 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/certain-router-423311-c7/my-app:latest', '-f', 'Application/Dockerfile', 'Application']
+    id: Build
+
+  # Step 2: Push the Docker image to GCR
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/certain-router-423311-c7/my-app:latest']
+    id: Push
+
+images:
+  - 'gcr.io/certain-router-423311-c7/my-app:latest'
+
