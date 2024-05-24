@@ -59,5 +59,3 @@ options:
   logging: CLOUD_LOGGING_ONLY
   service_account: 'gcr-874@certain-router-423311-c7.iam.gserviceaccount.com'
 
-timeout: '900s'
-
