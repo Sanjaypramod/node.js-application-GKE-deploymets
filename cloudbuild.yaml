@@ -9,19 +9,7 @@ steps:
     args: ['push', 'gcr.io/certain-router-423311-c7/my-app:latest']
     id: Push
 
-  # Step 3: Install Helm
-  - name: 'alpine/helm:3.5.4'
-    entrypoint: 'sh'
-    args:
-      - '-c'
-      - |
-        apk add --no-cache curl && \
-        curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v3.5.4-linux-amd64.tar.gz && \
-        tar -zxvf helm-v3.5.4-linux-amd64.tar.gz && \
-        mv linux-amd64/helm /usr/local/bin/helm
-    id: Install_Helm
-
-  # Step 4: Set up GKE authentication
+  # Step 3: Set up GKE authentication
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
@@ -31,9 +19,24 @@ steps:
         gcloud container clusters get-credentials sanjay --region us-central1 --project certain-router-423311
     id: GKE_Auth
 
+  # Step 4: Install Helm
+  - name: 'ubuntu'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        apt-get update && \
+        apt-get install -y curl apt-transport-https gnupg && \
+        curl https://baltocdn.com/helm/signing.asc | apt-key add - && \
+        apt-get install -y software-properties-common && \
+        apt-add-repository 'deb https://baltocdn.com/helm/stable/debian/ all main' && \
+        apt-get update && \
+        apt-get install -y helm
+    id: Install_Helm
+
   # Step 5: Initialize Helm (optional, depending on your cluster setup)
-  - name: 'alpine/helm:3.5.4'
-    entrypoint: 'sh'
+  - name: 'ubuntu'
+    entrypoint: 'bash'
     args:
       - '-c'
       - |
@@ -42,14 +45,12 @@ steps:
     id: Init_Helm
 
   # Step 6: Deploy using Helm
-  - name: 'alpine/helm:3.5.4'
+  - name: 'ubuntu'
+    entrypoint: 'bash'
     args:
-      - 'upgrade'
-      - '--install'
-      - 'my-app-release'
-      - './helm/my-app-chart'
-      - '--set'
-      - 'image.repository=gcr.io/certain-router-423311-c7/my-app,image.tag=latest'
+      - '-c'
+      - |
+        helm upgrade --install my-app-release ./helm/my-app-chart --set image.repository=gcr.io/certain-router-423311-c7/my-app,image.tag=latest
     id: Deploy_Helm
 
 images:
