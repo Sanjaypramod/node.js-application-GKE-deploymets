@@ -32,6 +32,7 @@ steps:
         mv linux-amd64/helm /usr/local/bin/helm && \
         /usr/local/bin/helm version
     id: Install_Helm
+        ls -al /usr/local/bin/helm
 
   # # Step 5: Initialize Helm (optional, depending on your cluster setup)
   # - name: 'ubuntu'
