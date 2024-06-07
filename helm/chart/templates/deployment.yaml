@@ -23,8 +23,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           env:
-          - name: {{ .Values.env.name }}
-            value: {{ .Values.env.value }}
+            {{- range .Values.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -54,3 +56,4 @@ spec:
     {{- end }}
       imagePullSecrets:
         - name: dc-2fjvj
+
