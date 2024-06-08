@@ -25,25 +25,25 @@ service:
   type: LoadBalancer
   port: 3000
 
-# ingress:
-#   enabled: false
-#   annotations: {} # Example: kubernetes.io/ingress.class: nginx
-#   path: /
-#   hosts:
-#     - chart-example.local
-#   tls: [] # Example: - secretName: chart-example-tls, hosts: [chart-example.local]
-
 ingress:
-  enabled: true
+  enabled: false
+  annotations: {} # Example: kubernetes.io/ingress.class: nginx
   path: /
   hosts:
-    - example.com
-  tls:
-    - hosts:
-        - example.com
-      secretName: example-tls
-  annotations:
-    kubernetes.io/ingress.class: nginx
+    - chart-example.local
+  tls: [] # Example: - secretName: chart-example-tls, hosts: [chart-example.local]
+
+# ingress:
+#   enabled: true
+#   path: /
+#   hosts:
+#     - example.com
+#   tls:
+#     - hosts:
+#         - example.com
+#       secretName: example-tls
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
 
 
 hpa:
