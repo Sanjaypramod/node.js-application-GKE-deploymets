@@ -18,18 +18,16 @@ spec:
     app: {{ template "tmf635-usage.name" . }}
     release: {{ .Release.Name }}
 
-
-# templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "zap.fullname" . }}
   labels:
-    app: {{ include "zap.name" . }}
+    app: {{ include "zap.fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
+  type: LoadBalancer
   ports:
-  - port: {{ .Values.service.port }}
-    targetPort: 8080
+    - port: 8080
+      targetPort: 8080
   selector:
-    app: {{ include "zap.name" . }}
+    app: {{ include "zap.fullname" . }}
