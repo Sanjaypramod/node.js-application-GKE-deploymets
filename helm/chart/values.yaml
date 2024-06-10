@@ -46,18 +46,18 @@ ingress:
 #     kubernetes.io/ingress.class: nginx
 
 # values.yaml
-replicaCount: 1
+# replicaCount: 1
 
-image:
-  repository: owasp/zap2docker-stable
-  pullPolicy: IfNotPresent
-  tag: latest
+# image:
+#   repository: owasp/zap2docker-stable
+#   pullPolicy: IfNotPresent
+#   tag: latest
 
-service:
-  type: LoadBalancer
-  port: 8081
+# service:
+#   type: LoadBalancer
+#   port: 8081
 
-resources: {}
+# resources: {}
 
 
 hpa:

@@ -31,16 +31,3 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Return the fully qualified name of the ZAP resource.
-*/}}
-{{- define "zap.fullname" -}}
-{{- printf "%s-%s" .Release.Name "zap" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Return the name of the ZAP resource.
-*/}}
-{{- define "zap.name" -}}
-zap
-{{- end -}}

@@ -57,4 +57,4 @@ spec:
       imagePullSecrets:
         - name: dc-2fjvj
 
-##################Owas zap ##################
+
