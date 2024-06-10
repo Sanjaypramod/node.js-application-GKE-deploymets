@@ -6,7 +6,8 @@ pipeline {
         PROJECT_ID = 'certain-router-423311-c7'
         CLUSTER_NAME = 'jenkins'
         LOCATION = 'us-central1'
-        CREDENTIALS_ID = 'b13ad57b-e9fb-4be9-ba02-db4ff71e3a50'
+        // CREDENTIALS_ID = 'b13ad57b-e9fb-4be9-ba02-db4ff71e3a50'
+        CREDENTIALS_ID = credentials('CREDENTIALS_ID')
         GCR_HOSTNAME = 'gcr.io'
         HELM_CHART_PATH = 'helm/chart'
         HELM_RELEASE_NAME = 'swiggy'
