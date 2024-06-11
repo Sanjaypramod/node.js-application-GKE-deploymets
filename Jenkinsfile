@@ -34,16 +34,16 @@ pipeline {
             }
         }
         
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                snykSecurity(
-                    snykInstallation: 'snyk',
-                    snykTokenId: 'ac51f892-29b2-4244-a354-704ef0530e25'
-                    // place other parameters here
-                )
-            }
-        }
+        stage('Snyk Test') {
+           steps {
+               script {
+                   // Run Snyk test
+                   withCredentials([string(credentialsId: 'ac51f892-29b2-4244-a354-704ef0530e25', variable: 'snyk_api-tocken')]) {
+                       sh 'snyk test --token=$snyk_api-tocken'
+                   }
+               }
+           }
+       }
         
         stage('Docker Build') {
             steps {
