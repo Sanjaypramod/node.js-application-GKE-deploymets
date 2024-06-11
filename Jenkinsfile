@@ -17,6 +17,7 @@ pipeline {
         stage('Checkout from Git') {
             steps {
                 git branch: 'master', url: 'https://github.com/Sanjaypramod/node.js-application-GKE-deploymets.git'
+            }
         }
 
         stage('Install Dependencies') {
