@@ -87,4 +87,10 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo 'Pipeline execution completed!'
+            // Add additional cleanup or notifications if necessary
+        }
+    }
 }
