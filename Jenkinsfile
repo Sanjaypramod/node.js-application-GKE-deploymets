@@ -6,12 +6,12 @@ pipeline {
         PROJECT_ID = 'certain-router-423311-c7'
         CLUSTER_NAME = 'jenkins'
         LOCATION = 'us-central1'
-        CREDENTIALS_ID = credentials('CREDENTIALS_ID')
+        CREDENTIALS_ID = 'b13ad57b-e9fb-4be9-ba02-db4ff71e3a50' // Replace with your actual Google Cloud credentials ID
         GCR_HOSTNAME = 'gcr.io'
         HELM_CHART_PATH = 'helm/chart'
         HELM_RELEASE_NAME = 'swiggy'
         HELM_NAMESPACE = 'swiggy'
-        SNYK_ID = 'ac51f892-29b2-4244-a354-704ef0530e25'
+        SNYK_ID = 'ac51f892-29b2-4244-a354-704ef0530e25' // Ensure this ID matches the one in Jenkins
     }
     stages {
         stage('Checkout from Git') {
@@ -33,7 +33,7 @@ pipeline {
                 // Add your build steps here
             }
         }
-        
+
         stage('Snyk Test') {
             steps {
                 script {
@@ -43,7 +43,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Docker Build') {
             steps {
                 script {
@@ -51,7 +51,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Docker Push') {
             steps {
                 script {
@@ -63,13 +63,13 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Docker Clean up') {
             steps {
                 sh 'docker image prune -f'
             }
         }
-        
+
         stage('Deploy to GKE') {
             steps {
                 withCredentials([file(credentialsId: CREDENTIALS_ID, variable: 'GCLOUD_SERVICE_KEY')]) {
