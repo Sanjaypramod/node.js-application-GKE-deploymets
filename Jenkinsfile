@@ -11,7 +11,7 @@ pipeline {
         HELM_CHART_PATH = 'helm/chart'
         HELM_RELEASE_NAME = 'swiggy'
         HELM_NAMESPACE = 'swiggy'
-        snyk-id = 'ac51f892-29b2-4244-a354-704ef0530e25'
+        SNYK_ID = 'ac51f892-29b2-4244-a354-704ef0530e25'
     }
     stages {
         stage('Checkout from Git') {
@@ -35,15 +35,14 @@ pipeline {
         }
         
         stage('Snyk Test') {
-           steps {
-               script {
-                   // Run Snyk test
-                   withCredentials([string(credentialsId: 'ac51f892-29b2-4244-a354-704ef0530e25', variable: 'snyk_api-tocken')]) {
-                       sh 'snyk test --token=$snyk_api-tocken'
-                   }
-               }
-           }
-       }
+            steps {
+                script {
+                    withCredentials([string(credentialsId: SNYK_ID, variable: 'SNYK_API_TOKEN')]) {
+                        sh 'snyk test --token=$SNYK_API_TOKEN'
+                    }
+                }
+            }
+        }
         
         stage('Docker Build') {
             steps {
