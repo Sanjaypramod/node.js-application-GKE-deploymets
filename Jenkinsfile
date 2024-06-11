@@ -11,6 +11,7 @@ pipeline {
         HELM_CHART_PATH = 'helm/chart'
         HELM_RELEASE_NAME = 'swiggy'
         HELM_NAMESPACE = 'swiggy'
+        snyk-id = 'ac51f892-29b2-4244-a354-704ef0530e25'
     }
     stages {
         stage('Checkout from Git') {
