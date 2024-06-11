@@ -6,14 +6,11 @@ pipeline {
         PROJECT_ID = 'certain-router-423311-c7'
         CLUSTER_NAME = 'jenkins'
         LOCATION = 'us-central1'
-        // CREDENTIALS_ID = 'b13ad57b-e9fb-4be9-ba02-db4ff71e3a50'
         CREDENTIALS_ID = credentials('CREDENTIALS_ID')
         GCR_HOSTNAME = 'gcr.io'
         HELM_CHART_PATH = 'helm/chart'
         HELM_RELEASE_NAME = 'swiggy'
         HELM_NAMESPACE = 'swiggy'
-        // ZAP_HELM_CHART_PATH = 'helm/chart' // Path to your OWASP ZAP Helm chart
-        // ZAP_HELM_RELEASE_NAME = 'zap'
     }
     stages {
         stage('Checkout from Git') {
@@ -29,6 +26,24 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                // Add your build steps here
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                snykSecurity(
+                    snykInstallation: 'snyk',
+                    snykTokenId: 'SNYK_API'
+                    // place other parameters here
+                )
+            }
+        }
+        
         stage('Docker Build') {
             steps {
                 script {
@@ -36,6 +51,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Docker Push') {
             steps {
                 script {
@@ -47,11 +63,13 @@ pipeline {
                 }
             }
         }
+        
         stage('Docker Clean up') {
             steps {
                 sh 'docker image prune -f'
             }
         }
+        
         stage('Deploy to GKE') {
             steps {
                 withCredentials([file(credentialsId: CREDENTIALS_ID, variable: 'GCLOUD_SERVICE_KEY')]) {
@@ -65,15 +83,8 @@ pipeline {
                             --namespace ${HELM_NAMESPACE} \
                             --wait
                     """
-                    // sh """
-                    //     helm upgrade --install ${ZAP_HELM_RELEASE_NAME} ${ZAP_HELM_CHART_PATH} \
-                    //         --namespace ${HELM_NAMESPACE} \
-                    //         --wait
-                    // """
-                
+                }
             }
-        }
-        
         }
     }
 }
