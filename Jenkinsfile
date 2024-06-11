@@ -27,10 +27,11 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Snyk Code Analysis') {
             steps {
-                echo 'Building...'
-                // Add your build steps here
+                sh 'npm install -g snyk'
+                sh 'snyk auth $SNYK_TOKEN'
+                sh 'snyk code test --json --severity-threshold=high > snyk-results.json'
             }
         }
 
@@ -89,6 +90,12 @@ pipeline {
     }
     post {
         always {
+            script {
+                // Archive the Snyk results
+                archiveArtifacts artifacts: 'snyk-results.json', allowEmptyArchive: true
+                // Optionally, publish the results to Snyk
+                sh 'snyk monitor'
+            }
             echo 'Pipeline execution completed!'
             // Add additional cleanup or notifications if necessary
         }
