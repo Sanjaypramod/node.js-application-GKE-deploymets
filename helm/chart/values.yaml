@@ -10,7 +10,7 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-replicaCount: 3
+replicaCount: 2
 
 env:
   - name: password
