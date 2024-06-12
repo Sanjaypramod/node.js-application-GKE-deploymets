@@ -35,9 +35,9 @@ pipeline {
 
         stage('Snyk Code Analysis') {
             steps {
-                sh 'npm install -g snyk'
-                sh 'snyk auth $SNYK_TOKEN'
-                sh 'snyk code test --json --severity-threshold=high > snyk-results.json'
+                sh 'sudo npm install -g snyk'
+                sh 'sudo snyk auth $SNYK_TOKEN'
+                sh 'sudo snyk code test --json --severity-threshold=high > snyk-results.json'
             }
         }
 
