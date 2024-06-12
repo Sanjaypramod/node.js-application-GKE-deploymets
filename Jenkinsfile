@@ -39,12 +39,9 @@ pipeline {
                 // sh 'sudo snyk auth $SNYK_TOKEN'
                 sh 'sudo snyk auth ac51f892-29b2-4244-a354-704ef0530e25'
                 sh 'sudo snyk code test --json --severity-threshold=high > snyk-results.json'
-                // The following line is commented out because it is not necessary for code analysis
+                // sh 'sudo snyk test --token=ac51f892-29b2-4244-a354-704ef0530e25 nodejs-application-pipeline/Application'
+                sh 'sudo snyk test'
                 // sh 'sudo snyk monitor nodejs-application-pipeline/Application/'
-                sh 'sudo snyk test --token=ac51f892-29b2-4244-a354-704ef0530e25 nodejs-application-pipeline'
-                sh 'sudo snyk test nodejs-application-pipeline/Application/'
-                // The monitor command should come after test to continue monitoring
-                sh 'sudo snyk monitor nodejs-application-pipeline/Application/'
            }
         }
 
