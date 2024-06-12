@@ -89,16 +89,5 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            script {
-                // Archive the Snyk results
-                archiveArtifacts artifacts: 'snyk-results.json', allowEmptyArchive: true
-                // Optionally, publish the results to Snyk
-                sh 'snyk monitor'
-            }
-            echo 'Pipeline execution completed!'
-            // Add additional cleanup or notifications if necessary
-        }
-    }
+    
 }
