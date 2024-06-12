@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/rinshad1/custom-nodejsapp#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.19.2"
   }
 }
