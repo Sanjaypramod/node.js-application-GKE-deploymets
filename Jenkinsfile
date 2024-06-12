@@ -39,19 +39,12 @@ pipeline {
                 // sh 'sudo snyk auth $SNYK_TOKEN'
                 sh 'sudo snyk auth ac51f892-29b2-4244-a354-704ef0530e25'
                 sh 'sudo snyk code test --json --severity-threshold=high > snyk-results.json'
+                sh 'sudo snyk monitor nodejs-application-pipeline/Application/'
+                sh 'sudo snyk test --token=ac51f892-29b2-4244-a354-704ef0530e25 nodejs-application-pipeline'
+                sh 'sudo snyk test nodejs-application-pipeline/Application/'
             }
         }
 
-        stage('Snyk Test') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: SNYK_ID, variable: 'SNYK_API_TOKEN')]) {
-                        // sh 'snyk test --token=$SNYK_API_TOKEN'
-                        sh 'sudo snyk test --token=ac51f892-29b2-4244-a354-704ef0530e25 nodejs-application-pipeline'
-                    }
-                }
-            }
-        }
 
         stage('Docker Build') {
             steps {
