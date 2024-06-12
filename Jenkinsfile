@@ -46,7 +46,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: SNYK_ID, variable: 'SNYK_API_TOKEN')]) {
-                        sh 'snyk test --token=$SNYK_API_TOKEN'
+                        // sh 'snyk test --token=$SNYK_API_TOKEN'
+                        sh 'sudo snyk test --token=ac51f892-29b2-4244-a354-704ef0530e25 nodejs-application-pipeline'
                     }
                 }
             }
